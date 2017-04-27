@@ -17,14 +17,14 @@ int insertBook(FILE *authorAndBook){
 
     hash = bookNumber % 30;
 
-    /*Dosyada yazılı olan 'index'ler okundu*/
+    /*'index' read from file*/
     authorAndBook = fopen("index.dat","r+");
     for(i=0;i<30;i++){
         fscanf(authorAndBook,"%d%d%d%d%d\n",&index[0][i],&index[1][i],&index[2][i],&index[3][i],&index[4][i]);
     }
     /*fclose(authorAndBook);*/
 
-    /*Dosyadan 'Author Name' ve 'Book Name' ler okundu*/
+    /*'Author Name' and 'Book Name' read from file*/
     authorAndBook = fopen("books.dat","r+");
     for(i=0;i<30;i++){
         for(j=0;j<10;j++){
@@ -42,7 +42,7 @@ int insertBook(FILE *authorAndBook){
     printf("Enter 'Book Name',please use '-' between words : ");
     scanf("%s",bookName);
 
-    /*Uygun yerlere 'index' numaraları ,'authorName' ve 'bookName' yazıldı */
+    /*'index' numbers ,'authorName's and 'bookName's adding to array */
     if(index[0][hash-1]==0){
         index[0][hash-1]=bookNumber;
         strcpy(authorAndBookNames[0][hash-1],authorName);
@@ -59,7 +59,7 @@ int insertBook(FILE *authorAndBook){
         }
     }
 
-    /*index.dat dosyasına veriler yazıldı*/
+    /*Datas are writing to 'index.dat' file*/
     if((authorAndBook = fopen("index.dat","w+"))==NULL){
         printf("Book Source File could not be opened\n");
     }
@@ -73,7 +73,7 @@ int insertBook(FILE *authorAndBook){
     }
     fclose(authorAndBook);
 
-    /*books.dat dosyasına veriler yazıldı*/
+    /*Datas are writing to 'books.dat' file*/
     if((authorAndBook = fopen("books.dat","w+"))==NULL){
         printf("Book Source File could not be opened\n");
     }
@@ -116,7 +116,7 @@ int searching(FILE *authorAndBook){
     int search,s,index[5][30],i,j=0,op,control=0;
     char authorAndBookNames[10][30];
 
-    /*Dosyalardaki değerler dizilere atandı*/
+    /*Datas are reading from file and adding to arrays*/
     authorAndBook=fopen("index.dat","r+");
     for(i=0;i<30;i++){
         fscanf(authorAndBook,"%d%d%d%d%d\n",&index[0][i],&index[1][i],&index[2][i],&index[3][i],&index[4][i]);
@@ -164,6 +164,7 @@ int searching(FILE *authorAndBook){
 int listing(FILE *authorAndBook){
     int i,j;
     char authorAndBookNames[10][30][30];
+    /*Datas are reading from file and adding to arrays*/
     authorAndBook=fopen("books.dat","r+");
     for(i=0;i<30;i++){
         fscanf(authorAndBook,"%s%s%s%s%s%s%s%s%s%s\n",&authorAndBookNames[0][i],&authorAndBookNames[1][i]
